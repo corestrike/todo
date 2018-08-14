@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog
+		xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+		xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd
+        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+	<changeSet author="mikami" id="reminder-001">
+		<preConditions onFail="MARK_RAN" onFailMessage="skip reminder-001">
+			<not>
+				<tableExists tableName="REMINDER" />
+			</not>
+		</preConditions>
+		<createTable tableName="REMINDER">
+			<column autoIncrement="true" name="ID" type="INT">
+				<constraints primaryKey="true" />
+			</column>
+			<column type="varchar(255)" name="TO">
+				<constraints nullable="false" />
+			</column>
+			<column type="bit(1)" name="sent">
+				<constraints nullable="false" />
+			</column>
+			<column type="timestamp" name="CREATED" defaultValueComputed="CURRENT_TIMESTAMP">
+				<constraints nullable="false" />
+			</column>
+			<column type="timestamp" name="EXEC_DATE" />
+		</createTable>
+	</changeSet>
+
+</databaseChangeLog>

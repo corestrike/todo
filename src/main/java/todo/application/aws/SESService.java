@@ -1,7 +1,11 @@
-package todo.application;
+package todo.application.aws;
 
 import com.amazonaws.AmazonClientException;
+import com.amazonaws.auth.AWSCredentials;
+import com.amazonaws.auth.AWSStaticCredentialsProvider;
+import com.amazonaws.auth.BasicAWSCredentials;
 import com.amazonaws.services.simpleemail.AmazonSimpleEmailService;
+import com.amazonaws.services.simpleemail.AmazonSimpleEmailServiceClient;
 import com.amazonaws.services.simpleemail.model.Body;
 import com.amazonaws.services.simpleemail.model.Content;
 import com.amazonaws.services.simpleemail.model.Destination;
@@ -9,7 +13,7 @@ import com.amazonaws.services.simpleemail.model.ListVerifiedEmailAddressesResult
 import com.amazonaws.services.simpleemail.model.Message;
 import com.amazonaws.services.simpleemail.model.SendEmailRequest;
 import com.amazonaws.services.simpleemail.model.VerifyEmailAddressRequest;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -17,10 +21,13 @@ import java.util.Collections;
 import java.util.List;
 
 @Service
-public class EmailService {
+public class SESService {
+	private static final String RESION_AMAZON_US_EAST = "us-east-1";
 
-	@Autowired
-	private AmazonSimpleEmailService ses;
+	@Value("${aws.api.key}")
+	private String awsKey;
+	@Value("${aws.api.secret}")
+	private String awsSecret;
 
 	static private List<String> verifiedEmailAddresses
 			= Collections.synchronizedList(new ArrayList<String>());
@@ -55,7 +62,12 @@ public class EmailService {
 
 		// 送信処理
 		try {
-			ses.sendEmail(request);
+			AWSCredentials credentials = new BasicAWSCredentials(awsKey, awsSecret);
+			AmazonSimpleEmailService service = AmazonSimpleEmailServiceClient.builder()
+					.withCredentials(new AWSStaticCredentialsProvider(credentials))
+					.withRegion(RESION_AMAZON_US_EAST)
+					.build();
+			service.sendEmail(request);
 		} catch (AmazonClientException ex) {
 			request.setMessage(message);
 			throw ex;
@@ -66,15 +78,21 @@ public class EmailService {
 	private void verifyEmailAddress(String address) {
 		if (verifiedEmailAddresses.contains(address)) return;
 
+		AWSCredentials credentials = new BasicAWSCredentials(awsKey, awsSecret);
+		AmazonSimpleEmailService service = AmazonSimpleEmailServiceClient.builder()
+				.withCredentials(new AWSStaticCredentialsProvider(credentials))
+				.withRegion(RESION_AMAZON_US_EAST)
+				.build();
+
 		ListVerifiedEmailAddressesResult verifiedEmails
-				= ses.listVerifiedEmailAddresses();
+				= service.listVerifiedEmailAddresses();
 		if (verifiedEmails.getVerifiedEmailAddresses().contains(address)) {
 			verifiedEmailAddresses
 					= Collections.synchronizedList(verifiedEmails.getVerifiedEmailAddresses());
 			return;
 		}
 
-		ses.verifyEmailAddress(
+		service.verifyEmailAddress(
 				new VerifyEmailAddressRequest().withEmailAddress(address)
 		);
 	}

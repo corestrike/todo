@@ -1,8 +1,8 @@
-package todo.application.Task;
+package todo.application.task;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import todo.application.EmailService;
+import todo.application.aws.SESService;
 
 public class ReminderTask implements Runnable {
 
@@ -11,7 +11,7 @@ public class ReminderTask implements Runnable {
 	private String body;
 
 	@Autowired
-	EmailService emailService;
+	SESService SESService;
 
 	@Value("${aws.ses.settings.from}")
 	private String from;
@@ -24,7 +24,7 @@ public class ReminderTask implements Runnable {
 
 	@Override
 	public void run() {
-		emailService.send(from, to, subject, body);
+		SESService.send(from, to, subject, body);
 	}
 
 }

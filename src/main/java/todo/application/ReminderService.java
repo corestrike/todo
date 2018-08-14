@@ -3,7 +3,7 @@ package todo.application;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler;
 import org.springframework.stereotype.Service;
-import todo.application.Task.ReminderTask;
+import todo.application.task.ReminderTask;
 import todo.domain.reminder.Reminder;
 import todo.domain.reminder.ReminderRepository;
 

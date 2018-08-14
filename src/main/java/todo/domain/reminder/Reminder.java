@@ -8,6 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import java.util.Date;
 
+@SuppressWarnings("serial")
 @Entity
 @Table(name = "reminder")
 public class Reminder {
