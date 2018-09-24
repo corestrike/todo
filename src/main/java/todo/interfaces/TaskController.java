@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import todo.application.TaskService;
@@ -40,14 +41,14 @@ public class TaskController {
      * @return
      */
     @PostMapping("/task")
-    public ModelAndView create(Task task) {
-        taskService.create(task);
+    public ModelAndView create(Task task, MultipartFile attachmentFile) {
+        taskService.create(task, attachmentFile);
         return new ModelAndView("redirect:/");
     }
 
     @PutMapping("/task/{id}")
-    public ModelAndView update(@PathVariable("id") int id, Task task) {
-        taskService.update(task);
+    public ModelAndView update(@PathVariable("id") int id, Task task, MultipartFile attachmentFile) {
+        taskService.update(task, attachmentFile);
         return new ModelAndView("redirect:/");
     }
 
