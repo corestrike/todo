@@ -15,6 +15,10 @@ $(function(){
 		showTaskForm(title, status);
 	});
 
+	$('.task-container .task-attachment a').click(function (e) {
+		e.stopPropagation();
+	});
+
 	$('.task-container .delete-button').click(function (e) {
 		e.stopPropagation();
 		console.log('delete');

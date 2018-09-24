@@ -7,7 +7,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
+import todo.domain.file.File;
 
 @SuppressWarnings("serial")
 @Entity
@@ -17,6 +20,7 @@ public class Task {
 	private Integer id;
 	private String title;
 	private Integer status;
+    private File attachment;
 	private Date created;
 	private Date updated;
 
@@ -45,6 +49,15 @@ public class Task {
 	public void setStatus(Integer status) {
 		this.status = status;
 	}
+
+    @OneToOne(mappedBy = "task")
+    public File getAttachment() {
+        return attachment;
+    }
+
+    public void setAttachment(File attachment) {
+        this.attachment = attachment;
+    }
 
 	@Column(name = "CREATED", nullable = false)
 	public Date getCreated() {

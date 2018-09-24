@@ -1,21 +1,24 @@
 package todo.application.aws;
 
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URLEncoder;
+
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+
+import com.amazonaws.HttpMethod;
 import com.amazonaws.auth.AWSCredentials;
 import com.amazonaws.auth.AWSStaticCredentialsProvider;
 import com.amazonaws.auth.BasicAWSCredentials;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3ClientBuilder;
 import com.amazonaws.services.s3.model.CannedAccessControlList;
+import com.amazonaws.services.s3.model.GeneratePresignedUrlRequest;
 import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.amazonaws.services.s3.model.PutObjectRequest;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
-
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.URLEncoder;
 
 @Service
 public class S3Service {
@@ -93,4 +96,23 @@ public class S3Service {
 				.withCannedAcl(CannedAccessControlList.Private);
 		s3.putObject(req);
 	}
+
+	public String getPresignedUrl(String bucketName, String key) throws IOException {
+		AWSCredentials credentials = new BasicAWSCredentials(awsKey, awsSecret);
+		AmazonS3 s3 = AmazonS3ClientBuilder.standard()
+				.withCredentials(new AWSStaticCredentialsProvider(credentials))
+				.withRegion(RESION_AMAZON_US_EAST)
+				.build();
+
+		java.util.Date expiration = new java.util.Date();
+		long expTimeMillis = expiration.getTime();
+		expTimeMillis += 1000 * 60 * 60;
+		expiration.setTime(expTimeMillis);
+
+		GeneratePresignedUrlRequest generatePresignedUrlRequest = new GeneratePresignedUrlRequest(bucketName, key)
+				.withMethod(HttpMethod.GET)
+				.withExpiration(expiration);
+		return s3.generatePresignedUrl(generatePresignedUrlRequest).toString();
+	}
+
 }

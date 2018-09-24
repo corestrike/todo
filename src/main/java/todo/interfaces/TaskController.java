@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import todo.application.FileService;
 import todo.application.TaskService;
 import todo.domain.task.Task;
 
@@ -21,6 +22,9 @@ import todo.domain.task.Task;
 public class TaskController {
     @Autowired
     TaskService taskService;
+    @Autowired
+    FileService fileService;
+
 
 	@GetMapping
 	public ModelAndView index(Task task) {
@@ -42,13 +46,16 @@ public class TaskController {
      */
     @PostMapping("/task")
     public ModelAndView create(Task task, MultipartFile attachmentFile) {
-        taskService.create(task, attachmentFile);
+        taskService.create(task);
+        if(attachmentFile != null) {
+            fileService.uploadFile(attachmentFile, task.getId());
+        }
         return new ModelAndView("redirect:/");
     }
 
     @PutMapping("/task/{id}")
     public ModelAndView update(@PathVariable("id") int id, Task task, MultipartFile attachmentFile) {
-        taskService.update(task, attachmentFile);
+        taskService.update(task);
         return new ModelAndView("redirect:/");
     }
 
