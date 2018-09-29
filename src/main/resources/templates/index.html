@@ -83,12 +83,16 @@
 	<div class="task-form-content modal-content">
 		<form id="task-form" action="#" th:action="@{/task}" th:object="${task}" method="POST" enctype="multipart/form-data">
 			<div class="form-item">
-				<label>タイトル</label>
-				<input name="title" class="text-input title" type="text" th:field="*{title}" />
+				<div class="form-item-content">
+					<span class="form-item-label">タイトル</span>
+					<input name="title" class="text-input title" type="text" th:field="*{title}" placeholder="タスクの内容を入力してください。"/>
+				</div>
 			</div>
 			<div class="form-item">
-				<label>ファイルを添付</label>
-				<input name="attachmentFile" class="file attachment" type="file"/>
+				<div class="form-item-content">
+					<span class="form-item-label">ファイルを添付</span>
+					<input name="attachmentFile" class="file attachment" type="file" style="padding:0;"/>
+				</div>
 			</div>
 			<div class="submit-menu">
 				<button class="button submit-button" type="button">
