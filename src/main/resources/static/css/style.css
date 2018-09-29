@@ -173,9 +173,24 @@ select {
   opacity: 0.5;
 }
 
+.form-item .form-item-content {
+  position: relative;
+  margin: 2em 0;
+  padding: 0.5em 1em;
+  border: solid 2px #ddd;
+  border-radius: 8px;
+}
 
-.form-item {
-  margin: 0;
+.form-item .form-item-content .form-item-label {
+    position: absolute;
+    display: inline-block;
+    top: -10px;
+    left: 5px;
+    padding: 0 5px;
+    line-height: 1;
+    background: #FFF;
+    color: #999;
+    font-weight: bold;
 }
 
 .form-item .form-item-input {
@@ -189,7 +204,8 @@ select {
 }
 
 .form-item .text-input {
-  border: 1px solid #d9d9d9;
+  border: 0;
+  padding: 0;
   font-size: inherit;
   height: 30px;
   width: 500px;
@@ -304,6 +320,7 @@ select {
   line-height: inherit;
   white-space: nowrap;
   overflow: hidden;
+  font-weight: bold;
 }
 
 .modal-header-title .room-name {
@@ -326,7 +343,7 @@ select {
 }
 
 .modal-content {
-  padding: 10px 20px;
+  padding: 0 15px 20px 15px;
   position: relative;
 }
 
