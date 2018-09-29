@@ -47,7 +47,7 @@ public class TaskController {
     @PostMapping("/task")
     public ModelAndView create(Task task, MultipartFile attachmentFile) {
         taskService.create(task);
-        if(attachmentFile != null) {
+        if(attachmentFile != null && !attachmentFile.isEmpty()) {
             fileService.uploadFile(attachmentFile, task.getId());
         }
         return new ModelAndView("redirect:/");
