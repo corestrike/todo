@@ -115,5 +115,12 @@
 			<artifactId>liquibase-core</artifactId>
 		</dependency>
 
+		<!-- Utility -->
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+			<version>LATEST</version>
+		</dependency>
+
 	</dependencies>
 </project>

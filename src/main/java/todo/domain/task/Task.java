@@ -11,6 +11,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import todo.domain.file.File;
+import todo.domain.reminder.Reminder;
 
 @SuppressWarnings("serial")
 @Entity
@@ -23,6 +24,7 @@ public class Task {
     private File attachment;
 	private Date created;
 	private Date updated;
+	private Reminder reminder;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -73,5 +75,13 @@ public class Task {
 	}
 	public void setUpdated(Date updated) {
 		this.updated = updated;
+	}
+
+	@OneToOne(mappedBy = "task")
+	public Reminder getReminder() {
+		return reminder;
+	}
+	public void setReminder(Reminder reminder) {
+		this.reminder = reminder;
 	}
 }

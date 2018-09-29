@@ -6,4 +6,5 @@ import org.springframework.stereotype.Repository;
 public interface ReminderRepository extends org.springframework.data.repository.Repository<Reminder, Integer> {
 	Reminder findById(Integer id);
 	<S extends Reminder> S save(S var1);
+	void deleteById(Integer id);
 }

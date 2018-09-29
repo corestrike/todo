@@ -3,6 +3,7 @@ package todo.application;
 import java.util.Date;
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,14 +17,20 @@ public class TaskService {
 	TaskRepository taskRepository;
 
 	public void create(Task task) {
-		task.setStatus(1);
-		task.setUpdated(new Date());
-		taskRepository.save(task);
+		if(StringUtils.isNotBlank(task.getTitle())) {
+			task.setStatus(1);
+			task.setUpdated(new Date());
+			task.setReminder(null);
+			taskRepository.save(task);
+		}
 	}
 
 	public void update(Task task) {
-		task.setUpdated(new Date());
-		taskRepository.save(task);
+		if(StringUtils.isNotBlank(task.getTitle())) {
+			task.setUpdated(new Date());
+			task.setReminder(null);
+			taskRepository.save(task);
+		}
 	}
 
 	public void delete(Integer id) {

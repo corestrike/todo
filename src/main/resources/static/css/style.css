@@ -219,6 +219,13 @@ select {
   width: 500px;
 }
 
+.form-item .form-item-content .form-item-subcontent {
+  margin: 5px 5px 10px;
+}
+.form-item .form-item-content .form-item-subcontent .form-item-subtitle {
+  border-bottom:1px solid #ddd
+}
+
 #wrapper {
   margin-top: 54px;
   position: relative;
@@ -287,7 +294,6 @@ select {
   position: fixed;
   right: 0;
   top: 0;
-  z-index: 10000;
 }
 
 .modal-box {
@@ -296,8 +302,7 @@ select {
   position: fixed;
   top: 50%;
   transform: translate(-50%, -50%);
-  width: 300px;
-  z-index: 10001;
+  width: 500px;
 }
 
 .modal-header {
@@ -450,7 +455,7 @@ input[disabled] {
 	float: left;
 }
 
-.task-form-content input[type=text]{
+.task-form-content input[type=text], .task-form-content input[type=email]{
 	width: 100%;
 }
 
