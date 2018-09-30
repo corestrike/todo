@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -75,13 +76,19 @@ public class TaskController {
     }
 
     @PutMapping("/task/{id}")
-    public ModelAndView update(@PathVariable("id") int id, Task task, MultipartFile attachmentFile) {
+    public ModelAndView update(@PathVariable("id") int id, Task task,
+							   @RequestParam(value = "currentstatus", required = false) Integer currentStatus,
+							   MultipartFile attachmentFile) {
 		Reminder reminder = task.getReminder();
-		reminder.setTaskId(id);
+		reminder.setTaskId(task.getId());
 
         taskService.update(task);
 
-		reminderService.updateReminder(reminder);
+        if(currentStatus == null) {
+			reminderService.updateReminder(reminder);
+		} else if(currentStatus == 3) {
+        	reminderService.completeReminder(reminder.getId());
+		}
 
         return new ModelAndView("redirect:/");
     }

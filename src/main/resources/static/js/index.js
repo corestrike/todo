@@ -44,7 +44,7 @@ $(function(){
 				: 1;
 		$("#task-form .form-item input[name=title]").val(title);
 		$('#task-form .status').val(nextStatusCode);
-		let url = '/task/' + _SELECTED_TASK_ID;
+		let url = '/task/' + _SELECTED_TASK_ID + "?currentstatus=" + nextStatusCode;
 		let method = 'PUT';
 		formSubmit(url, method);
 	});

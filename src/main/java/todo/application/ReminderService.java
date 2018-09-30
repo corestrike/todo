@@ -42,7 +42,7 @@ public class ReminderService {
 	}
 
 	public void updateReminder(Reminder reminder) {
-		if(reminder.getTaskId() != null) {
+		if(reminder.getId() != null) {
 			removeScheduleTask(reminder.getId());
 			if(StringUtils.isNotBlank(reminder.getEmail()) && reminder.getExecDate() != null) {
 				// update
@@ -68,10 +68,14 @@ public class ReminderService {
 	}
 
 	public void completeReminder(Integer reminderId) {
-		Reminder reminder = reminderRepository.findById(reminderId);
-		reminder.setSent(true);
-		reminderRepository.save(reminder);
-		removeScheduleTask(reminderId);
+		if(reminderId != null) {
+			Reminder reminder = reminderRepository.findById(reminderId);
+			if(reminder != null) {
+				reminder.setSent(true);
+				reminderRepository.save(reminder);
+				removeScheduleTask(reminderId);
+			}
+		}
 	}
 
 	public void createScheduleTask(Integer reminderId, String to, Date execDate) {
