@@ -70,7 +70,7 @@ public class TaskController {
 			fileService.uploadFile(attachmentFile, task.getId());
 		}
 
-		reminderService.createReminder(task.getId(), reminder.getEmail(), reminder.getExecDate());
+		reminderService.createReminder(task.getId(), reminder.getEmail(), reminder.getExecDate(), task.getTitle());
 
         return new ModelAndView("redirect:/");
     }
@@ -85,7 +85,7 @@ public class TaskController {
         taskService.update(task);
 
         if(currentStatus == null) {
-			reminderService.updateReminder(reminder);
+			reminderService.updateReminder(reminder, task.getTitle());
 		} else if(currentStatus == 3) {
         	reminderService.completeReminder(reminder.getId());
 		}

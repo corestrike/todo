@@ -29,7 +29,7 @@ public class ReminderService {
 
 	private final Map<Integer, ScheduledFuture<?>> scheduledTasks = new IdentityHashMap<>();
 
-	public void createReminder(Integer taskId, String to, Date execDate) {
+	public void createReminder(Integer taskId, String to, Date execDate, String taskTitle) {
 		if(StringUtils.isNotBlank(to) && execDate != null) {
 			Reminder reminder = new Reminder();
 			reminder.setEmail(to);
@@ -37,25 +37,25 @@ public class ReminderService {
 			reminder.setTaskId(taskId);
 			reminderRepository.save(reminder);
 
-			createScheduleTask(reminder.getId(), to, execDate);
+			createScheduleTask(reminder.getId(), to, execDate, taskTitle);
 		}
 	}
 
-	public void updateReminder(Reminder reminder) {
+	public void updateReminder(Reminder reminder, String taskTitle) {
 		if(reminder.getId() != null) {
 			removeScheduleTask(reminder.getId());
 			if(StringUtils.isNotBlank(reminder.getEmail()) && reminder.getExecDate() != null) {
 				// update
 				reminder.setSent(false);
 				reminderRepository.save(reminder);
-				createScheduleTask(reminder.getId(), reminder.getEmail(), reminder.getExecDate());
+				createScheduleTask(reminder.getId(), reminder.getEmail(), reminder.getExecDate(), taskTitle);
 			} else {
 				// delete
 				reminderRepository.deleteById(reminder.getId());
 			}
 		} else {
 			// create
-			createReminder(reminder.getTaskId(), reminder.getEmail(), reminder.getExecDate());
+			createReminder(reminder.getTaskId(), reminder.getEmail(), reminder.getExecDate(), taskTitle);
 		}
 	}
 
@@ -78,9 +78,9 @@ public class ReminderService {
 		}
 	}
 
-	public void createScheduleTask(Integer reminderId, String to, Date execDate) {
+	public void createScheduleTask(Integer reminderId, String to, Date execDate, String taskTitle) {
 		String subject = "タスクの実施期限が近づいています。";
-		String body = "タスクを実施してください。";
+		String body = "タスク(タイトル： " + taskTitle +")を実施してください。";
 		reminderTask.setId(reminderId);
 		reminderTask.setTo(to);
 		reminderTask.setBody(body);
