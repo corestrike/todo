@@ -22,7 +22,7 @@
 			<div class="status-label">
 				Todo
 			</div>
-			<div class="task-container" th:each="task : ${todoList}" th:data-task-id="${task.id}" th:data-task-status="${task.status}" th:data-reminder-id="${(task.reminder != null)? task.reminder.id:''}" th:data-reminder-schedule="${(task.reminder != null)? #dates.format(task.reminder.execDate, 'yyyy/MM/dd HH:mm'):''}" th:data-reminder-to="${(task.reminder != null)? task.reminder.email:''}">
+			<div class="task-container" th:each="task : ${todoList}" th:data-task-id="${task.id}" th:data-task-status="${task.status}">
 				<div class="task-title" th:text="${task.title}">
 				</div>
 				<div class="task-attachment" th:if="${task.attachment}">
@@ -40,7 +40,7 @@
 			<div class="status-label">
 				Doing
 			</div>
-			<div class="task-container" th:each="task : ${doingList}" th:data-task-id="${task.id}" th:data-task-status="${task.status}" th:data-reminder-id="${(task.reminder != null)? task.reminder.id:''}" th:data-reminder-schedule="${(task.reminder != null)? #dates.format(task.reminder.execDate, 'yyyy/MM/dd HH:mm'):''}" th:data-reminder-to="${(task.reminder != null)? task.reminder.email:''}">
+			<div class="task-container" th:each="task : ${doingList}" th:data-task-id="${task.id}" th:data-task-status="${task.status}">
 				<div class="task-title" th:text="${task.title}">
 				</div>
 				<div class="task-attachment" th:if="${task.attachment}">
@@ -58,7 +58,7 @@
 			<div class="status-label">
 				Done
 			</div>
-			<div class="task-container" th:each="task : ${doneList}" th:data-task-id="${task.id}" th:data-task-status="${task.status}" th:data-reminder-id="${(task.reminder != null)? task.reminder.id:''}" th:data-reminder-schedule="${(task.reminder != null)? #dates.format(task.reminder.execDate, 'yyyy/MM/dd HH:mm'):''}" th:data-reminder-to="${(task.reminder != null)? task.reminder.email:''}">
+			<div class="task-container" th:each="task : ${doneList}" th:data-task-id="${task.id}" th:data-task-status="${task.status}">
 				<div class="task-title" th:text="${task.title}">
 				</div>
 				<div class="task-attachment" th:if="${task.attachment}">
@@ -96,29 +96,11 @@
 					<input name="attachmentFile" class="file attachment" type="file" style="padding:0;"/>
 				</div>
 			</div>
-			<div class="form-item">
-				<div class="form-item-content">
-					<span class="form-item-label">リマインダー</span>
-					<div class="form-item-subcontent">
-						<div class="form-item-subtitle">
-							<label>通知日時</label>
-						</div>
-						<input id="datetimepicker" class="text-input text" type="text" th:field="*{reminder.execDate}" placeholder="日時を指定してください。（クリック）" autocomplete="off"/>
-					</div>
-					<div class="form-item-subcontent">
-						<div class="form-item-subtitle">
-							<label>通知先</label>
-						</div>
-						<input id="reminderTo" name="email" class="text-input email" type="email" th:field="*{reminder.email}" placeholder="メールアドレスを入力してください。"/>
-					</div>
-				</div>
-			</div>
 			<div class="submit-menu">
 				<button class="button submit-button" type="button">
 					作成
 				</button>
 				<input name="status" class="text-input status hide" type="text" th:field="*{status}" />
-				<input id="reminderId" class="text-input text hide" type="hidden" th:field="*{reminder.id}" />
 				<input id="form-method" type="hidden" name="_method" value="POST">
 			</div>
 		</form>

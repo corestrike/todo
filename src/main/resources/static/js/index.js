@@ -11,11 +11,8 @@ $(function(){
 	$('.task-container').click(function () {
 		let title = $(this).find('.task-title').text();
 		let status = $(this).data('task-status');
-		let reminderId = $(this).data('reminder-id');
-		let reminderSchedule = $(this).data('reminder-schedule');
-		let reminderTo = $(this).data('reminder-to');
 		_SELECTED_TASK_ID = $(this).data('task-id');
-		showTaskForm(title, status, reminderId, reminderSchedule, reminderTo);
+		showTaskForm(title, status);
 	});
 
 	$('.task-container .task-attachment a').click(function (e) {
@@ -64,24 +61,18 @@ $(function(){
 	$('.modal-close-button').click(function () {
 		cancel();
 	});
-
-	$.datetimepicker.setLocale('ja');
-	$('#datetimepicker').datetimepicker({step: 1});
 });
 
-function showTaskForm(title, status, reminderId, reminderSchedule, reminderTo) {
+function showTaskForm(title, status) {
 	console.log("task-form");
 	console.log(_SELECTED_TASK_ID);
 	$(".form-item input[name=title]").val(title);
-	$("#datetimepicker").val(reminderSchedule);
-	$("#reminderTo").val(reminderTo);
 
 	let form = $('#task-form');
 	if(title){
 		$('#task-form-modal').find('.task-form-header').text('タスクの編集');
 		form.find('.submit-button').text('更新');
 		$('#task-form .status').val(status);
-		$("#reminderId").val(reminderId);
 	} else{
 		$('#task-form-modal').find('.task-form-header').text('タスクの作成');
 		form.find('.submit-button').text('作成');

@@ -20,7 +20,6 @@ public class TaskService {
 		if(StringUtils.isNotBlank(task.getTitle())) {
 			task.setStatus(1);
 			task.setUpdated(new Date());
-			task.setReminder(null);
 			taskRepository.save(task);
 		}
 	}
@@ -28,7 +27,6 @@ public class TaskService {
 	public void update(Task task) {
 		if(StringUtils.isNotBlank(task.getTitle())) {
 			task.setUpdated(new Date());
-			task.setReminder(null);
 			taskRepository.save(task);
 		}
 	}
