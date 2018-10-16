@@ -98,13 +98,6 @@
 			<artifactId>spring-boot-devtools</artifactId>
 		</dependency>
 
-		<!-- AWS SDK -->
-		<dependency>
-			<groupId>com.amazonaws</groupId>
-			<artifactId>aws-java-sdk</artifactId>
-			<version>LATEST</version>
-		</dependency>
-
 		<!-- Database -->
 		<dependency>
 			<groupId>mysql</groupId>

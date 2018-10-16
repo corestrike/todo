@@ -25,9 +25,6 @@
 			<div class="task-container" th:each="task : ${todoList}" th:data-task-id="${task.id}" th:data-task-status="${task.status}">
 				<div class="task-title" th:text="${task.title}">
 				</div>
-				<div class="task-attachment" th:if="${task.attachment}">
-					<a th:href="@{'/file/download/' + ${task.attachment.id}}" th:text="${task.attachment.name}" target="_blank"></a>
-				</div>
 				<button class="button delete-button" type="button">
 					削除
 				</button>
@@ -43,9 +40,6 @@
 			<div class="task-container" th:each="task : ${doingList}" th:data-task-id="${task.id}" th:data-task-status="${task.status}">
 				<div class="task-title" th:text="${task.title}">
 				</div>
-				<div class="task-attachment" th:if="${task.attachment}">
-					<a th:href="@{'/file/download/' + ${task.attachment.id}}" th:text="${task.attachment.name}" target="_blank"></a>
-				</div>
 				<button class="button delete-button" type="button">
 					削除
 				</button>
@@ -60,9 +54,6 @@
 			</div>
 			<div class="task-container" th:each="task : ${doneList}" th:data-task-id="${task.id}" th:data-task-status="${task.status}">
 				<div class="task-title" th:text="${task.title}">
-				</div>
-				<div class="task-attachment" th:if="${task.attachment}">
-					<a th:href="@{'/file/download/' + ${task.attachment.id}}" th:text="${task.attachment.name}" target="_blank"></a>
 				</div>
 				<button class="button delete-button" type="button">
 					削除
@@ -83,17 +74,11 @@
 		</div>
 	</div>
 	<div class="task-form-content modal-content">
-		<form id="task-form" action="#" th:action="@{/task}" th:object="${task}" method="POST" enctype="multipart/form-data">
+		<form id="task-form" action="#" th:action="@{/task}" th:object="${task}" method="POST">
 			<div class="form-item">
 				<div class="form-item-content">
 					<span class="form-item-label">タイトル</span>
 					<input name="title" class="text-input title" type="text" th:field="*{title}" placeholder="タスクの内容を入力してください。" />
-				</div>
-			</div>
-			<div class="form-item">
-				<div class="form-item-content">
-					<span class="form-item-label">ファイルを添付</span>
-					<input name="attachmentFile" class="file attachment" type="file" style="padding:0;"/>
 				</div>
 			</div>
 			<div class="submit-menu">

@@ -16,10 +16,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
-import todo.application.FileService;
 import todo.application.TaskService;
 import todo.domain.task.Task;
 
@@ -28,8 +26,6 @@ import todo.domain.task.Task;
 public class TaskController {
     @Autowired
     TaskService taskService;
-    @Autowired
-    FileService fileService;
 
 	@InitBinder
 	public void dateBinder(WebDataBinder binder) {
@@ -58,20 +54,15 @@ public class TaskController {
      * @return
      */
     @PostMapping("/task")
-    public ModelAndView create(Task task, MultipartFile attachmentFile) {
+    public ModelAndView create(Task task) {
         taskService.create(task);
-
-        if(attachmentFile != null && !attachmentFile.isEmpty()) {
-			fileService.uploadFile(attachmentFile, task.getId());
-		}
 
         return new ModelAndView("redirect:/");
     }
 
     @PutMapping("/task/{id}")
     public ModelAndView update(@PathVariable("id") int id, Task task,
-							   @RequestParam(value = "currentstatus", required = false) Integer currentStatus,
-							   MultipartFile attachmentFile) {
+							   @RequestParam(value = "currentstatus", required = false) Integer currentStatus) {
         taskService.update(task);
 
         return new ModelAndView("redirect:/");
