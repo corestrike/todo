@@ -7,5 +7,4 @@
         http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
 	<include file="migration/changelog/db.changelog-task.xml" />
 	<include file="migration/changelog/db.changelog-file.xml" />
-	<include file="migration/changelog/db.changelog-reminder.xml"/>
 </databaseChangeLog>
