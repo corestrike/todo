@@ -16,9 +16,9 @@ import com.amazonaws.auth.BasicAWSCredentials;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3ClientBuilder;
 import com.amazonaws.services.s3.model.CannedAccessControlList;
+import com.amazonaws.services.s3.model.GeneratePresignedUrlRequest;
 import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.amazonaws.services.s3.model.PutObjectRequest;
-import com.amazonaws.services.s3.model.GeneratePresignedUrlRequest;
 
 @Service
 public class S3Service {
@@ -55,7 +55,7 @@ public class S3Service {
 		InputStream is = new ByteArrayInputStream(multipartFile.getBytes());
 		ObjectMetadata metadata = new ObjectMetadata();
 		metadata.setContentType(multipartFile.getContentType());
-		metadata.setContentDisposition("inline; filename*=UTF-8''" + URLEncoder.encode(multipartFile.getOriginalFilename(), "UTF-8"));
+		metadata.setContentDisposition("attachment; filename*=UTF-8''" + URLEncoder.encode(multipartFile.getOriginalFilename(), "UTF-8"));
 		metadata.setContentLength(multipartFile.getBytes().length);
 
 		PutObjectRequest req = new PutObjectRequest(bucketName, key, is, metadata)
@@ -89,7 +89,7 @@ public class S3Service {
 		InputStream is = new ByteArrayInputStream(multipartFile.getBytes());
 		ObjectMetadata metadata = new ObjectMetadata();
 		metadata.setContentType(multipartFile.getContentType());
-		metadata.setContentDisposition("inline; filename*=UTF-8''" + URLEncoder.encode(multipartFile.getOriginalFilename(), "UTF-8"));
+		metadata.setContentDisposition("attachment; filename*=UTF-8''" + URLEncoder.encode(multipartFile.getOriginalFilename(), "UTF-8"));
 		metadata.setContentLength(multipartFile.getBytes().length);
 
 		PutObjectRequest req = new PutObjectRequest(bucketName, key, is, metadata)
