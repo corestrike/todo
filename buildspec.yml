@@ -7,3 +7,5 @@ phases:
 artifacts:
   files:
     - target/todo.jar
+    - scripts/*
+    - appspec.yml
