@@ -9,23 +9,23 @@
 	<changeSet author="uesako" id="task-001">
 		<preConditions onFail="MARK_RAN" onFailMessage="skip task-001">
 			<not>
-				<tableExists tableName="TASKS" />
+				<tableExists tableName="tasks" />
 			</not>
 		</preConditions>
-		<createTable tableName="TASKS">
-			<column autoIncrement="true" name="ID" type="INT">
+		<createTable tableName="tasks">
+			<column autoIncrement="true" name="id" type="INT">
 				<constraints primaryKey="true" />
 			</column>
-			<column type="varchar(255)" name="TITLE">
+			<column type="varchar(255)" name="title">
 				<constraints nullable="false" />
 			</column>
-			<column type="INT" name="STATUS" defaultValueNumeric="1">
+			<column type="INT" name="status" defaultValueNumeric="1">
 				<constraints nullable="false" />
 			</column>
-			<column type="timestamp" name="CREATED" defaultValueComputed="CURRENT_TIMESTAMP">
+			<column type="timestamp" name="created" defaultValueComputed="CURRENT_TIMESTAMP">
 				<constraints nullable="false" />
 			</column>
-			<column type="timestamp" name="UPDATED"
+			<column type="timestamp" name="updated"
 				defaultValueComputed="CURRENT_TIMESTAMP" />
 		</createTable>
 	</changeSet>

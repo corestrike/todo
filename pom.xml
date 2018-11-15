@@ -54,6 +54,7 @@
 						-Xdebug
 						-Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=5007
 					</jvmArguments>
+					<executable>true</executable>
 				</configuration>
 				<executions>
 					<execution>
@@ -97,13 +98,18 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-devtools</artifactId>
 		</dependency>
-
-		<!-- AWS SDK -->
 		<dependency>
-			<groupId>com.amazonaws</groupId>
-			<artifactId>aws-java-sdk</artifactId>
-			<version>LATEST</version>
+			<groupId>org.apache.maven.plugins</groupId>
+			<artifactId>maven-assembly-plugin</artifactId>
+			<version>3.1.0</version>
 		</dependency>
+
+        <!-- AWS SDK -->
+        <dependency>
+            <groupId>com.amazonaws</groupId>
+            <artifactId>aws-java-sdk</artifactId>
+            <version>LATEST</version>
+        </dependency>
 
 		<!-- Database -->
 		<dependency>
