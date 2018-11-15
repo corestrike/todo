@@ -12,7 +12,7 @@ public class HelloWorldController {
 	@GetMapping
 	public ModelAndView index() {
 		ModelAndView mav = new ModelAndView("helloworld");
-		mav.addObject("message", "Hello World!!!");
+		mav.addObject("message", "Welcome to AWS World!");
 		return mav;
 	}
 

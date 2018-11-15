@@ -19,6 +19,7 @@ public class TaskService {
 	public void create(Task task) {
 		if(StringUtils.isNotBlank(task.getTitle())) {
 			task.setStatus(1);
+			task.setCreated(new Date());
 			task.setUpdated(new Date());
 			task.setReminder(null);
 			taskRepository.save(task);
