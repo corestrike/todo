@@ -9,35 +9,35 @@
 	<changeSet author="mikami" id="reminder-001">
 		<preConditions onFail="MARK_RAN" onFailMessage="skip reminder-001">
 			<not>
-				<tableExists tableName="REMINDER" />
+				<tableExists tableName="reminder" />
 			</not>
 		</preConditions>
-		<createTable tableName="REMINDER">
-			<column autoIncrement="true" name="ID" type="INT">
+		<createTable tableName="reminder">
+			<column autoIncrement="true" name="id" type="INT">
 				<constraints primaryKey="true" />
 			</column>
-			<column type="varchar(255)" name="EMAIL">
+			<column type="varchar(255)" name="email">
 				<constraints nullable="false" />
 			</column>
-			<column type="bit(1)" name="SENT">
+			<column type="bit(1)" name="sent">
 				<constraints nullable="false" />
 			</column>
-			<column type="timestamp" name="CREATED" defaultValueComputed="CURRENT_TIMESTAMP">
+			<column type="timestamp" name="created" defaultValueComputed="CURRENT_TIMESTAMP">
 				<constraints nullable="false" />
 			</column>
-			<column type="timestamp" name="EXEC_DATE" />
+			<column type="timestamp" name="exec_date" />
 		</createTable>
 	</changeSet>
 
 	<changeSet author="mikami" id="reminder-002">
 		<preConditions onFail="MARK_RAN" onFailMessage="skip reminder-002">
-			<tableExists tableName="REMINDER" />
+			<tableExists tableName="reminder" />
 			<not>
-				<columnExists tableName="REMINDER" columnName="TASK_ID"/>
+				<columnExists tableName="reminder" columnName="task_id"/>
 			</not>
 		</preConditions>
-		<addColumn tableName="REMINDER">
-			<column name="TASK_ID" type="INT">
+		<addColumn tableName="reminder">
+			<column name="task_id" type="INT">
 				<constraints nullable="false"/>
 			</column>
 		</addColumn>
@@ -45,16 +45,16 @@
 
 	<changeSet author="mikami" id="reminder-003">
 		<preConditions onFail="MARK_RAN" onFailMessage="skip reminder-003">
-			<tableExists tableName="REMINDER" />
-			<tableExists tableName="TASKS" />
+			<tableExists tableName="reminder" />
+			<tableExists tableName="tasks" />
 			<not>
-				<foreignKeyConstraintExists foreignKeyName="FK_REMINDER_TASK_ID" foreignKeyTableName="REMINDER"/>
+				<foreignKeyConstraintExists foreignKeyName="fk_reminder_task_id" foreignKeyTableName="reminder"/>
 			</not>
 		</preConditions>
-		<addForeignKeyConstraint baseColumnNames="TASK_ID"
-								 baseTableName="REMINDER" constraintName="FK_REMINDER_TASK_ID"
+		<addForeignKeyConstraint baseColumnNames="task_id"
+								 baseTableName="reminder" constraintName="fk_reminder_task_id"
 								 deferrable="false" initiallyDeferred="false" onDelete="CASCADE"
-								 onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="TASKS" />
+								 onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="tasks" />
 	</changeSet>
 
 </databaseChangeLog>
