@@ -108,7 +108,7 @@
         <dependency>
             <groupId>com.amazonaws</groupId>
             <artifactId>aws-java-sdk</artifactId>
-            <version>LATEST</version>
+            <version>1.11.452</version>
         </dependency>
 
 		<!-- Database -->
