@@ -31,10 +31,15 @@ public class ReminderService {
 
 	public void createReminder(Integer taskId, String to, Date execDate, String taskTitle) {
 		if(StringUtils.isNotBlank(to) && execDate != null) {
-			Reminder reminder = new Reminder();
+			Reminder reminder = reminderRepository.findByTaskId(taskId);
+			if(reminder == null) {
+				reminder = new Reminder();
+				reminder.setTaskId(taskId);
+			} else {
+				removeScheduleTask(reminder.getId());
+			}
 			reminder.setEmail(to);
 			reminder.setExecDate(execDate);
-			reminder.setTaskId(taskId);
 			reminderRepository.save(reminder);
 
 			createScheduleTask(reminder.getId(), to, execDate, taskTitle);
